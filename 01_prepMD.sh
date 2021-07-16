@@ -7,7 +7,6 @@ This script automates a system preparation for Gromacs.
     Usage:
         bash ${0} [PDB file]
 EOS
-GMX=/opt/homebrew/bin/gmx
 
 inputPDBName=$1 
 proteinName=`basename ${inputPDBName%.*}`
