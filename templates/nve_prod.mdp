@@ -1,0 +1,37 @@
+title                   = NVE production
+
+; Run parameters
+integrator              = md        ; leap-frog integrator
+nsteps                  = 50000     ; 2 * 50000 = 100 ps
+dt                      = 0.001     ; 1 fs
+
+; Output control
+nstxout-compressed      = 100
+compressed-x-grps       = System
+nstlog                  = 100
+
+; Bond parameters
+continuation            = no        ; first dynamics run
+constraint_algorithm    = lincs     ; holonomic constraints
+constraints             = h-bonds   ; bonds involving H are constrained
+lincs_iter              = 2         ; accuracy of LINCS
+lincs_order             = 4         ; also related to accuracy
+
+; Nonbonded settings
+cutoff-scheme           = Verlet    ; Buffered neighbor searching
+ns_type                 = grid      ; search neighboring grid cells
+nstlist                 = 10        ; 20 fs, largely irrelevant with Verlet
+rcoulomb                = 1.2       ; short-range electrostatic cutoff (in nm)
+rvdw                    = 1.2       ; short-range van der Waals cutoff (in nm)
+DispCorr                = EnerPres  ; account for cut-off vdW scheme
+
+; Electrostatics
+rlist           = 1.2
+coulombtype     = Reaction-Field    ; Treatment of long range electrostatic interactions
+epsilon-rf      = 0
+
+; Periodic boundary conditions
+pbc                     = xyz       ; 3-D PBC
+
+; Velocity generation
+gen_vel                 = no        ; assign velocities from Maxwell distribution
