@@ -12,10 +12,10 @@ nstlog             = 1000
 
 ; Bond parameters
 continuation         = yes       ; Restarting after equilibriation
-constraint_algorithm = lincs    ; holonomic constraints
-constraints          = h-bonds; h bonds constrained
-lincs_iter           = 1    ; accuracy of LINCS
-lincs_order          = 4    ; also related to accuracy
+constraint_algorithm = lincs     ; holonomic constraints
+constraints          = h-bonds   ; h bonds constrained
+lincs_iter           = 1         ; accuracy of LINCS
+lincs_order          = 4         ; also related to accuracy
 
 ; Neighborsearching
 cutoff-scheme   = Verlet
@@ -25,9 +25,11 @@ rcoulomb        = 1.2           ; short-range electrostatic cutoff (in nm)
 rvdw            = 1.2           ; short-range van der Waals cutoff (in nm)
 
 ; Electrostatics
+coulombtype     = PME
+fourierspacing  = 0.16      ; grid spacing for FFT
+pme-order       = 4         ; cubic interpolation
+ewald-rtol      = 1e-5      ; relative strength of the ele. int. at the cutoff
 rlist           = 1.2
-coulombtype     = Reaction-Field    ; Treatment of long range electrostatic interactions
-epsilon-rf      = 0
 
 ; Temperature coupling is on
 tcoupl  = V-rescale            ; modified Berendsen thermostat
@@ -47,7 +49,7 @@ refcoord_scaling = com
 pbc  = xyz ; 3-D PBC
 
 ; Dispersion correction
-DispCorr = EnerPres; account for cut-off vdW scheme
+DispCorr = EnerPres  ; account for cut-off vdW scheme
 
 ; Velocity generation
 gen_vel = no ; Velocity generation

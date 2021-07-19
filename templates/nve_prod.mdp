@@ -27,9 +27,11 @@ DispCorr                = EnerPres  ; account for cut-off vdW scheme
 verlet-buffer-tolerance = 0.001     ; This should make total energy conserved
 
 ; Electrostatics
+coulombtype     = PME
+fourierspacing  = 0.16      ; grid spacing for FFT
+pme-order       = 4         ; cubic interpolation
+ewald-rtol      = 1e-5      ; relative strength of the ele. int. at the cutoff
 rlist           = 1.2
-coulombtype     = Reaction-Field    ; Treatment of long range electrostatic interactions
-epsilon-rf      = 0
 
 ; Periodic boundary conditions
 pbc                     = xyz       ; 3-D PBC
