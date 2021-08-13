@@ -1,4 +1,4 @@
-title       = SMD
+title       = SMD_FmaxSearch
 define      = -DPOSRES_RegionA
 
 ; Run parameters
@@ -26,30 +26,21 @@ lincs_order             = 4         ; also related to accuracy
 cutoff-scheme   = Verlet
 nstlist         = 10 
 ns_type         = grid 
-rlist           = 1.2
-rcoulomb        = 1.2
-rvdw            = 1.2
+rlist           = 1.0
+rcoulomb        = 1.0
+rvdw            = 1.0
 
 ; Electrostatics
 coulombtype     = PME
 fourierspacing  = 0.16      ; grid spacing for FFT
 pme-order       = 4         ; cubic interpolation
 ewald-rtol      = 1e-5      ; relative strength of the ele. int. at the cutoff
-rlist           = 1.2
 
 ;---Thermostat---
 tcoupl          = V-rescale             ; modified Berendsen thermostat
 tc-grps         = Protein Non-Protein   ; two coupling groups - more accurate
 tau_t           = 0.1     0.1           ; time constant, in ps
 ref_t           = 300.0  300.0        ; reference temperature, one for each
-
-;---Barostat---
-Pcoupl           = Parrinello-Rahman 
-pcoupltype       = isotropic
-tau_p            = 2.0      
-compressibility  = 4.5e-5
-ref_p            = 1.0
-refcoord_scaling = com
 
 ;---Generate velocities is off
 gen_vel  = no 
@@ -66,10 +57,10 @@ pull_ncoords            = 1         ; only one reaction coordinate
 pull_ngroups            = 2         ; two groups defining one reaction coordinate 
 pull_group1_name        = RegionA 
 pull_group2_name        = RegionB 
-pull_coord1_type        = umbrella  ; harmonic potential
-pull_coord1_geometry    = distance  ; simple distance increase 
-pull_coord1_dim         = Y N N
+pull_coord1_type        = constant-force  ; harmonic potential
+pull_coord1_geometry    = distance        ; simple distance increase 
+pull_coord1_dim         = Y Y Y
 pull_coord1_groups      = 1 2
 pull_coord1_start       = yes       ; define initial COM distance > 0
 pull_coord1_rate        = 0.01      ; 0.01 nm per ps = 10 nm per ns
-pull_coord1_k           = 1000      ; kJ mol^-1 nm^-2
+pull_coord1_k           = -#{FORCE_CONST} ; kJ mol^-1 nm^-1 
