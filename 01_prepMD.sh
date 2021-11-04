@@ -19,6 +19,12 @@ ${GMX} editconf -f ${proteinName}_processed.gro \
               -d 1.0                          \
               -bt dodecahedron #triclinic 
 
+# For pulling MD
+#${GMX} editconf -f ${proteinName}_processed.gro \
+#              -o ${proteinName}_newbox.gro    \
+#              -box 5.0 2.5 2.5               \
+#              -princ
+
 ${GMX} solvate -cp ${proteinName}_newbox.gro \
              -cs spc216.gro                \
              -o ${proteinName}_solv.gro    \
@@ -35,6 +41,8 @@ echo "SOL" | ${GMX} genion \
     -p topol.top \
     -pname NA -nname CL \
     -conc 0.1 -neutral 
+
+
 
 echo "Energy minimisation 1 ..."
 ${GMX} grompp -f templates/em1.mdp \
