@@ -17,6 +17,7 @@ ${GMX} pdb2gmx -f ${inputPDBName} -o ${proteinName}_processed.gro -water tip3p
 ${GMX} editconf -f ${proteinName}_processed.gro \
               -o ${proteinName}_newbox.gro    \
               -d 1.0                          \
+              -princ \
               -bt dodecahedron #triclinic 
 
 # For pulling MD
