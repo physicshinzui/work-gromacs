@@ -7,7 +7,7 @@ This script submits MD runs.
         bash ${0} [run id] 
 EOS
 id=$1
-GMX-gmx
+GMX=gmx
 
 type=npt
 
@@ -28,8 +28,8 @@ elif [ $type -eq "nvt" ] ; then
     echo "NVT runs are running..."
     cp templates/nvt_prod.mdp nvt_prod_${id}.mdp
     $GMX grompp -f nvt_prod_${id}.mdp  \
-                -c nvt_eq_${id}.gro    \
-                -t nvt_eq_${id}.cpt    \
+                -c npt_eq_${id}.gro    \
+                -t npt_eq_${id}.cpt    \
                 -p topol.top           \
                 -o nvt_prod_${id}.tpr
     # - Starting coordinates can be read from trajectory with -t
