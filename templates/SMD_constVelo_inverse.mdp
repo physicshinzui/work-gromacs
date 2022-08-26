@@ -1,4 +1,4 @@
-title       = Steered MD
+title       = invSMD
 define      = -DPOSRES_RegionA
 
 ; Run parameters
@@ -62,7 +62,7 @@ pull_group1_name        = RegionA
 pull_group2_name        = RegionB 
 pull_coord1_type        = umbrella
 pull_coord1_geometry    = distance        ; simple distance increase 
-pull_coord1_dim         = Y N N
+pull_coord1_dim         = Y Y Y
 pull_coord1_groups      = 1 2
 pull-group2-pbcatom     = 25
 pull-pbc-ref-prev-step-com = yes
