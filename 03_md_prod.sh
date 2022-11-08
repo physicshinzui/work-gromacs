@@ -11,7 +11,7 @@ GMX=gmx
 
 type=npt
 
-if [ $type -eq "npt" ]; then  
+if [ $type = "npt" ]; then  
     echo "NPT runs are running..."
     cp templates/npt_prod.mdp npt_prod_${id}.mdp
     $GMX grompp -f npt_prod_${id}.mdp  \
@@ -25,7 +25,7 @@ if [ $type -eq "npt" ]; then
     
     $GMX mdrun -deffnm npt_prod_${id}
 
-elif [ $type -eq "nvt" ] ; then 
+elif [ $type = "nvt" ] ; then 
     echo "NVT runs are running..."
     cp templates/nvt_prod.mdp nvt_prod_${id}.mdp
     $GMX grompp -f nvt_prod_${id}.mdp  \
