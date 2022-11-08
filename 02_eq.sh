@@ -15,6 +15,7 @@ ${GMX} grompp -f nvt_eq_${id}.mdp \
             -c em2.gro \
             -r em2.gro \
             -p topol.top \
+            -po mdout_nvt_eq.mdp \
             -o nvt_eq_${id}.tpr
 ${GMX} mdrun -deffnm nvt_eq_${id}
 
@@ -24,5 +25,6 @@ ${GMX} grompp -f npt_eq_${id}.mdp \
             -c nvt_eq_${id}.gro \
             -r nvt_eq_${id}.gro \
             -p topol.top  \
+            -po mdout_npt_eq.mdp \
             -o npt_eq_${id}.tpr
 ${GMX} mdrun -deffnm npt_eq_${id}

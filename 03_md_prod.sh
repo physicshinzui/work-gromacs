@@ -4,7 +4,7 @@ cat << EOS
 Author: Shinji Iida
 This script submits MD runs.
     Usage:
-        bash ${0} [run id] 
+        bash ${0} [run id]
 EOS
 id=$1
 GMX=gmx
@@ -18,6 +18,7 @@ if [ $type -eq "npt" ]; then
                 -c npt_eq_${id}.gro    \
                 -t npt_eq_${id}.cpt    \
                 -p topol.top           \
+                -po mdout_npt_prod.mdp \
                 -o npt_prod_${id}.tpr
     # - Starting coordinates can be read from trajectory with -t
     #   - Only if this information is absent will the coordinates in the -c file be used.    
@@ -31,6 +32,7 @@ elif [ $type -eq "nvt" ] ; then
                 -c npt_eq_${id}.gro    \
                 -t npt_eq_${id}.cpt    \
                 -p topol.top           \
+                -po mdout_nvt_prod.mdp \
                 -o nvt_prod_${id}.tpr
     # - Starting coordinates can be read from trajectory with -t
     #   - Only if this information is absent will the coordinates in the -c file be used.    
