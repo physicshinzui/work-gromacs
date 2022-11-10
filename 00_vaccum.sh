@@ -12,7 +12,6 @@ inputPDBName=$1
 MDSTEPS=$2
 ENS=$3
 proteinName=`basename ${inputPDBName%.*}`
-GMX=gmx
 
 ${GMX} pdb2gmx -f ${inputPDBName} -o ${proteinName}_processed.gro -water tip3p
 
