@@ -1,1 +1,12 @@
 .DS_Store
+*.gro 
+*.tpr 
+*#* 
+*.edr 
+*.trr 
+*.xtc 
+*.top 
+*.itp 
+*.mdp 
+*.log 
+*.cpt
