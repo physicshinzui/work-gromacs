@@ -5,11 +5,12 @@ cat << EOS
 Author: Shinji Iida
 This script automates a system preparation for Gromacs.
     Usage:
-        bash ${0} [PDB file] [MD STEPS]
+        bash ${0} [PDB file] [MD STEPS] [nvt/nve]
 EOS
 
 inputPDBName=$1
 MDSTEPS=$2
+ENS=$3
 proteinName=`basename ${inputPDBName%.*}`
 GMX=gmx
 
@@ -20,7 +21,7 @@ ${GMX} editconf -f ${proteinName}_processed.gro \
               -box 1000.0 1000.0 1000.0 \
               -bt cubic
 
-echo "Energy minimisation 1 ..."
+echo "Energy minimisation ..."
 ${GMX} grompp -f templates/em_vac.mdp \
             -c ${proteinName}_newbox.gro \
             -r ${proteinName}_newbox.gro \
@@ -29,13 +30,28 @@ ${GMX} grompp -f templates/em_vac.mdp \
             -o em.tpr
 ${GMX} mdrun -deffnm em
 
-echo "NVT equilibration runs are running..."
 id=1
-cat templates/nvt_vac.mdp | sed -e "s!#{RAND}!${RANDOM}!g" > nvt_vac_${id}.mdp
-${GMX} grompp -f nvt_vac_${id}.mdp \
-              -c em.gro \
-              -r em.gro \
-              -p topol.top \
-              -po mdout_nvt_vac.mdp \
-              -o nvt_vac_${id}.tpr
-${GMX} mdrun -deffnm nvt_vac_${id} -nsteps $MDSTEPS
+
+if [ $ENS = "nvt" ]; then
+    echo "NVT runs..."
+    cat templates/nvt_vac.mdp | sed -e "s!#{RAND}!${RANDOM}!g" > nvt_vac_${id}.mdp
+    ${GMX} grompp -f nvt_vac_${id}.mdp \
+                  -c em.gro \
+                  -r em.gro \
+                  -p topol.top \
+                  -po mdout_nvt_vac.mdp \
+                  -o nvt_vac_${id}.tpr
+    ${GMX} mdrun -deffnm nvt_vac_${id} -nsteps $MDSTEPS
+
+elif [ $ENS = "nve" ]; then 
+    echo "NVE runs..."
+    cat templates/nve_vac.mdp | sed -e "s!#{RAND}!${RANDOM}!g" > nve_vac_${id}.mdp
+    ${GMX} grompp -f nve_vac_${id}.mdp \
+                  -c em.gro \
+                  -r em.gro \
+                  -p topol.top \
+                  -po mdout_nve_vac.mdp \
+                  -o nve_vac_${id}.tpr \
+                  -maxwarn 1
+    ${GMX} mdrun -deffnm nve_vac_${id} -nsteps $MDSTEPS
+fi
