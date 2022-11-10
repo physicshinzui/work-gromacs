@@ -1,6 +1,8 @@
 #!/bin/bash 
 
-ls *.gro *.tpr *# *.edr *.trr *.xtc *.top *.itp *.mdp *.log
+ls *.gro *.tpr *# *.edr *.trr *.xtc *.top *.itp *.mdp *.log *.cpt
 read -p "Are you really sure?[Enter]"
 read -p "Are you really sure?[Enter]"
-rm -v *.gro *.tpr *# *.edr *.trr *.xtc *.top *.itp *.mdp *.log
+mkdir tmp ; cp -rp *.gro *.tpr *# *.edr *.trr *.xtc *.top *.itp *.mdp *.log *.cpt tmp
+
+rm -v *.gro *.tpr *# *.edr *.trr *.xtc *.top *.itp *.mdp *.log *.cpt
