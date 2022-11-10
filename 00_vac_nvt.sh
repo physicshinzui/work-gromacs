@@ -5,10 +5,11 @@ cat << EOS
 Author: Shinji Iida
 This script automates a system preparation for Gromacs.
     Usage:
-        bash ${0} [PDB file]
+        bash ${0} [PDB file] [MD STEPS]
 EOS
 
 inputPDBName=$1
+MDSTEPS=$2
 proteinName=`basename ${inputPDBName%.*}`
 GMX=gmx
 
@@ -37,4 +38,4 @@ ${GMX} grompp -f nvt_vac_${id}.mdp \
               -p topol.top \
               -po mdout_nvt_vac.mdp \
               -o nvt_vac_${id}.tpr
-${GMX} mdrun -deffnm nvt_vac_${id}
+${GMX} mdrun -deffnm nvt_vac_${id} -nsteps $MDSTEPS
