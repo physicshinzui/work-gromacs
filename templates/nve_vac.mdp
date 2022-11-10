@@ -1,4 +1,8 @@
 title      = NVE in vaccum
+
+; NOTE
+; To conserve Hamiltonian, GROMACS must be compiled with the option `-DGMX_DOUBLE=on` to activate double precision.
+
 ;---Run parameters---
 integrator = md     ; 
 nsteps     = 10000  ; 2 * 50000 = 100 ps
