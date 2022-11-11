@@ -1,16 +1,17 @@
 #!/bin/bash
 set -eu
-
 cat << EOS
 Author: Shinji Iida
 This script automates a system preparation for Gromacs.
     Usage:
-        bash ${0} [PDB file] [MD STEPS] [nvt/nve]
+        bash ${0} [PDB file] [MD STEPS] [nvt/nve] [MD run id (int/str)]
 EOS
 
+GMX=gmx
 inputPDBName=$1
 MDSTEPS=$2
 ENS=$3
+id=$4
 proteinName=`basename ${inputPDBName%.*}`
 
 ${GMX} pdb2gmx -f ${inputPDBName} -o ${proteinName}_processed.gro -water tip3p
@@ -28,8 +29,6 @@ ${GMX} grompp -f templates/em_vac.mdp \
             -po mdout_em.mdp \
             -o em.tpr
 ${GMX} mdrun -deffnm em
-
-id=1
 
 if [ $ENS = "nvt" ]; then
     echo "NVT runs..."
@@ -53,4 +52,7 @@ elif [ $ENS = "nve" ]; then
                   -o nve_vac_${id}.tpr \
                   -maxwarn 1
     ${GMX} mdrun -deffnm nve_vac_${id} -nsteps $MDSTEPS
+
+else
+    echo "ERROR: ENS stores invalid value => $ENS"
 fi
