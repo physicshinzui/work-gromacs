@@ -26,5 +26,5 @@ ${GMX} grompp -f npt_eq_${id}.mdp \
               -r nvt_eq_${id}.gro \
               -p topol.top  \
               -po mdout_npt_eq.mdp \
-              -o npt_eq_${id}.tpr
+              -o npt_eq_${id}.tpr #-maxwarn 1 if Gromacs says that Berendsen barostat does not guarantee canonical distribution, you should add this option. 
 ${GMX} mdrun -deffnm npt_eq_${id}
