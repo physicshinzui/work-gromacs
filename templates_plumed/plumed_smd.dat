@@ -1,0 +1,12 @@
+MOLINFO STRUCTURE=#{PDB}
+
+d: DISTANCE ATOMS=1,2 
+
+# V(s, t) = 1/2 kappa * (s - s0(t))^2
+MOVINGRESTRAINT ...
+   ARG=d 
+   STEP0=0    AT0=2.65 KAPPA0=100.0 
+   STEP1=1000 AT1=5.0 
+   STEP2=2000 AT2=2.65 
+   STEP3=2500          KAPPA3=0.0 
+...
