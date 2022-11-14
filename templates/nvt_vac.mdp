@@ -36,9 +36,9 @@ rlist           = 333.3
 ;DispCorr        = Ener     ; account for cut-off vdW scheme
 
 ;---Langevin Thermostat---
-tc-grps                 = Protein
-tau_t                   = 0.1
-ref_t                   = 300
+tc-grps         = System
+tau_t           = 0.1
+ref_t           = 300
 
 ;---Initial velocity---
 gen_vel         = yes      ; Velocity generation
