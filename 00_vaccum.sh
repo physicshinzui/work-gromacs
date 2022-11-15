@@ -14,11 +14,12 @@ ENS=$3
 id=$4
 proteinName=`basename ${inputPDBName%.*}`
 
-${GMX} pdb2gmx -f ${inputPDBName} -o ${proteinName}_processed.gro -water tip3p
+${GMX} pdb2gmx -f ${inputPDBName} -o ${proteinName}_processed.gro -water none
 
 ${GMX} editconf -f ${proteinName}_processed.gro \
               -o ${proteinName}_newbox.gro \
               -box 1000.0 1000.0 1000.0 \
+              -center 500.0 500.0 500.0 \
               -bt cubic
 
 echo "Energy minimisation ..."
