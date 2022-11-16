@@ -1,0 +1,27 @@
+colvarsTrajFrequency 100
+
+indexFile index.ndx
+colvar {
+  name RMSD
+
+  outputAppliedForce on   # keep track of bias force on this variable
+  rmsd {
+    atoms {
+        indexGroup Backbone
+    }
+    refPositionsFile #{XYZ}  # ref. positions are selected based on atom number
+  }
+}
+
+
+harmonic {             # Define a moving harmonic restraint
+  colvars RMSD
+
+  centers 0.59               # go from xx Angstrom RMSD...
+  targetCenters 0.1          # ... to yy Angstrom
+  targetNumSteps  500000     # in 2 million MD steps
+  forceConstant 1000000.         # in kcal/mol/A^2
+  
+  outputAccumulatedWork yes   # keep track of how much energy will be added
+}
+
