@@ -1,0 +1,30 @@
+# https://www.plumed.org/doc-v2.8/user-doc/html/_r_m_s_d.html
+MOLINFO STRUCTURE=#{PDB}
+rmsd: RMSD REFERENCE=#{REF} TYPE=OPTIMAL
+# NOTE: The reference should be formated by the PDB format.
+
+# NOTE:
+#     V(s, t) = 1/2 kappa * (s - s0(t))^2
+#     Distance unit is Angstrom
+MOVINGRESTRAINT ...
+   ARG=rmsd
+   STEP0=0     AT0=0.59 KAPPA0=100000.0
+   STEP1=10000 AT1=0.1
+...
+PRINT ARG=* FILE=COLVAR STRIDE=10
+
+# NOTE
+# The followig columns are in the COLVER output file.
+#
+# bias: the instantaneous value of the bias potential
+# work: the total work performed changing this restraint
+# force2: the instantaneous value of the squared force due to this bias potential
+# _cntr: one or multiple instances of this quantity can be referenced elsewhere in the input file.
+#        these quantities will named with the arguments of the bias followed by the character string _cntr.
+#        These quantities give the instantaneous position of the center of the harmonic potential.
+# _work: one or multiple instances of this quantity can be referenced elsewhere in the input file.
+#        These quantities will named with the arguments of the bias followed by the character string _work.
+#        These quantities tell the user how much work has been done by the potential in dragging the system along the various colvar axis.
+# _kappa: one or multiple instances of this quantity can be referenced elsewhere in the input file.
+#         These quantities will named with the arguments of the bias followed by the character string _kappa.
+#         These quantities tell the user the time dependent value of kappa.
