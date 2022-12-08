@@ -20,18 +20,12 @@ ${GMX} editconf -f ${proteinName}_processed.gro \
               -princ \
               -bt dodecahedron #triclinic 
 
-# For pulling MD
-#${GMX} editconf -f ${proteinName}_processed.gro \
-#              -o ${proteinName}_newbox.gro    \
-#              -box 5.0 2.5 2.5               \
-#              -princ
-
 ${GMX} solvate -cp ${proteinName}_newbox.gro \
              -cs spc216.gro                \
              -o ${proteinName}_solv.gro    \
              -p topol.top
 
-${GMX} grompp -f templates/ions.mdp \
+${GMX} grompp -f ../templates/ions.mdp \
             -c ${proteinName}_solv.gro \
             -p topol.top \
             -po mdout_ion.mdp \
@@ -45,7 +39,7 @@ echo "SOL" | ${GMX} genion \
     -conc 0.1 -neutral 
 
 echo "Energy minimisation 1 ..."
-${GMX} grompp -f templates/em1.mdp \
+${GMX} grompp -f ../templates/em1.mdp \
             -c ${proteinName}_solv_ions.gro \
             -r ${proteinName}_solv_ions.gro \
             -p topol.top \
@@ -54,7 +48,7 @@ ${GMX} grompp -f templates/em1.mdp \
 ${GMX} mdrun -deffnm em1 
 
 echo "Energy minimisation 2 ..."
-${GMX} grompp -f templates/em2.mdp \
+${GMX} grompp -f ../templates/em2.mdp \
             -c em1.gro \
             -p topol.top \
             -po mdout_em2.mdp \
