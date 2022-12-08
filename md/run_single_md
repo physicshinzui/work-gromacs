@@ -4,14 +4,21 @@ set -eu
 cat<<EOF
 
 Usage: 
-    $0 [PDB file]
+    $0 [PDB file] [No of runs]
 
-Note that the prefix of the given PDB file name is used in naming md jobs.
+- The PDB file name is used as the directory name where data is stored.
 
 EOF
-PDB=$1
+PDB=`pwd`/$1
 prefix=`basename ${PDB%.*}`
-echo $prefix
-bash 01_prepMD.sh $PDB
-bash 02_eq.sh $prefix
-bash 03_md_prod.sh $prefix
+N=$2
+
+mkdir $prefix
+
+cd $prefix 
+bash ../01_prepMD.sh $PDB
+for i in $(seq 1 $N); do
+    bash ../02_eq.sh $i #$prefix
+    bash ../03_md_prod.sh $i # $prefix
+done
+cd -
