@@ -5,7 +5,7 @@ cat << EOS
 Author: Shinji Iida
 This script automates a system preparation for Gromacs.
     Usage:
-        bash ${0} [PDB file]
+        bash ${0} [PDB file] [Bounday type]
 EOS
 
 inputPDBName=$1 
