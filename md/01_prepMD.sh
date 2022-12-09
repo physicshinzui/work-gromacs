@@ -9,6 +9,7 @@ This script automates a system preparation for Gromacs.
 EOS
 
 inputPDBName=$1 
+BT=$2
 proteinName=`basename ${inputPDBName%.*}`
 GMX=gmx
 
@@ -18,8 +19,7 @@ ${GMX} editconf -f ${proteinName}_processed.gro \
               -o ${proteinName}_newbox.gro    \
               -d 1.0                          \
               -princ \
-              -bt dodecahedron #triclinic 
-
+              -bt $BT
 ${GMX} solvate -cp ${proteinName}_newbox.gro \
              -cs spc216.gro                \
              -o ${proteinName}_solv.gro    \
