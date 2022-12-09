@@ -11,7 +11,7 @@ id=$1
 echo "SMD runs are running..."
 
 # Pulling
-cp templates/cv_smd.mdp smd_${id}.mdp
+cp ../templates/cv_smd.mdp smd_${id}.mdp
 gmx grompp -f smd_${id}.mdp \
            -c npt_eq_${id}.gro \
            -t npt_eq_${id}.cpt \
@@ -26,7 +26,7 @@ gmx grompp -f smd_${id}.mdp \
 gmx mdrun -deffnm smd_${id}
 
 # Reverse pulling
-cp templates/cv_smd_inv.mdp smd_${id}.mdp
+cp ../templates/cv_smd_inv.mdp smd_${id}.mdp
 gmx grompp -f smd_${id}.mdp \
            -c smd_${id}.gro \
            -t smd_${id}.cpt \
