@@ -1,0 +1,15 @@
+#!/bin/bash
+set -eu
+source argparser
+
+mkdir $prefix
+cd $prefix 
+
+bash ../01_prepMD.sh $PDB $BT
+INDEX_REF=em2.gro
+bash ../scripts/make_index_for_smd.sh $INDEX_REF
+for i in $(seq 1 $N); do
+    bash ../02_eq.sh $i 
+    bash ../03_smd_prod.sh $i
+done
+cd -
