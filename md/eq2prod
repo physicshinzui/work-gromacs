@@ -1,0 +1,22 @@
+#!/bin/bash 
+set -eu
+cat <<EOF
+Usage: 
+    $0 [job ID] [TYPE (md / smd / meta)]
+
+EOF
+readonly ID=$1
+readonly TYPE=$2
+
+bash ../02_eq.sh $ID
+
+if [ $TYPE == 'md' ]; then
+    bash ../03_md_prod.sh $ID
+
+elif [ $TYPE == 'smd' ]; then 
+    bash ../03_smd_prod.sh $ID
+
+elif [ $TYPE == 'meta' ]; then 
+    echo "not implented yet"
+    exit 0
+fi
