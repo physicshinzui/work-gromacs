@@ -13,6 +13,8 @@ BT=$2
 proteinName=`basename ${inputPDBName%.*}`
 GMX=gmx
 
+is_mixed=1
+
 ${GMX} pdb2gmx -f ${inputPDBName} -o ${proteinName}_processed.gro -water tip3p
 
 ${GMX} editconf -f ${proteinName}_processed.gro \
@@ -20,10 +22,18 @@ ${GMX} editconf -f ${proteinName}_processed.gro \
               -d 1.0                          \
               -princ \
               -bt $BT
+
 ${GMX} solvate -cp ${proteinName}_newbox.gro \
              -cs spc216.gro                \
              -o ${proteinName}_solv.gro    \
              -p topol.top
+
+if [ $is_mixed ]; then
+    read -p "How many molecules do you want to replace with water?" nmol
+    read -p "Molecule Types?[ne/ar/kr/xe]" tp
+    ${GMX} insert-molecules -f ${proteinName}_solv.gro -ci ../box/noble/${tp}.pdb -nmol $nmol -replace SOL -o ${proteinName}_solv.gro
+    ${GMX} pdb2gmx -f ${proteinName}_solv.gro -water tip3p -o ${proteinName}_solv.gro
+fi
 
 ${GMX} grompp -f ../templates/ions.mdp \
             -c ${proteinName}_solv.gro \
