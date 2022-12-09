@@ -1,24 +1,13 @@
 #!/bin/bash
 set -eu
-
-cat<<EOF
-
-Usage: 
-    $0 [PDB file] [No of runs]
-
-- The PDB file name is used as the directory name where data is stored.
-
-EOF
-PDB=`pwd`/$1
-prefix=`basename ${PDB%.*}`
-N=$2
+source argparser
 
 mkdir $prefix
 
 cd $prefix 
-bash ../01_prepMD.sh $PDB
+bash ../01_prepMD.sh $PDB $BT
 for i in $(seq 1 $N); do
-    bash ../02_eq.sh $i #$prefix
-    bash ../03_md_prod.sh $i # $prefix
+    bash ../02_eq.sh $i 
+    bash ../03_md_prod.sh $i 
 done
 cd -
