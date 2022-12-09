@@ -7,7 +7,6 @@ mkdir $prefix
 cd $prefix 
 bash ../01_prepMD.sh $PDB $BT
 for i in $(seq 1 $N); do
-    bash ../02_eq.sh $i 
-    bash ../03_md_prod.sh $i 
+    bash ../eq2prod $i md
 done
 cd -
