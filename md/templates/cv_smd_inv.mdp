@@ -1,5 +1,4 @@
 title       = invSMD
-define      = -DPOSRES_RegionA
 
 ; Run parameters
 integrator  = sd
@@ -58,14 +57,12 @@ pull-nstxout            = 1
 pull-nstfout            = 1
 pull_ncoords            = 1         ; only one reaction coordinate 
 pull_ngroups            = 2         ; two groups defining one reaction coordinate 
-pull_group1_name        = RegionA 
-pull_group2_name        = RegionB 
+pull_group1_name        = reg1
+pull_group2_name        = reg2 
 pull_coord1_type        = umbrella
 pull_coord1_geometry    = distance        ; simple distance increase 
 pull_coord1_dim         = Y Y Y
 pull_coord1_groups      = 1 2
-pull-group2-pbcatom     = 25
-pull-pbc-ref-prev-step-com = yes
 pull_coord1_start       = yes       ; define initial COM distance > 0
-pull_coord1_rate        = -0.0025   ; 0.01 nm per ps = 10 nm per ns
+pull_coord1_rate        = -0.01   ; 0.01 nm per ps = 10 nm per ns
 pull_coord1_k           = 600       ; kJ mol^-1 nm^-2
