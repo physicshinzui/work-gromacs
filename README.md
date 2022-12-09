@@ -11,16 +11,18 @@ Author: Shinji Iida
 export PATH=path-to-script-directory:$PATH
 ```
 
-## 1. A simple MD simulation
+## 1. Simple MD simulations
+Em -> Eq (500 ps) -> NPT (production)
 ```
-single_md.sh target.pdb
+./run_md [PDB] [boundary type] [no of runs]
+```
+## 2. Steered MD
+Em -> Eq (500 ps) -> NPT SMD (production)
+```
+./run_smd [PDB] [boundary type] [no of runs]
 ```
 
-## 2. Metadynamics
-
-
-## 3. Steered MD
-
+## 3. Metadynamics
 
 ## 4. Targeted MD 
 
