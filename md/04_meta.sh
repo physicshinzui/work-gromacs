@@ -4,7 +4,7 @@ GMX=gmx_plumed
 PLM=plumed
 
 id=1
-cp templates/npt_prod.mdp npt_metad_${id}.mdp
+cp ../templates/npt_prod.mdp npt_metad_${id}.mdp
 ${GMX} grompp -f npt_metad_${id}.mdp \
               -c npt_eq_${id}.gro \
               -r npt_eq_${id}.gro \
@@ -15,6 +15,6 @@ ${GMX} grompp -f npt_metad_${id}.mdp \
 
 ${GMX} mdrun -deffnm npt_metad_${id} \
              -nsteps 1000 \
-             -plumed plumed_rg.dat
+             -plumed meta_plumed.dat
 
 #${PLM} sum_hills --hills HILLS --mintozero
