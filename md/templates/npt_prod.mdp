@@ -6,9 +6,9 @@ nsteps     = 5000     ; 2 * 50000 = 100 ps
 dt         = 0.002     ; 0.002 = 2 fs
 
 ; Output control
-nstxout-compressed = 100
+nstxout-compressed = 5000
 compressed-x-grps  = System
-nstlog             = 100
+nstlog             = 5000
 
 ; Bond parameters
 continuation         = yes       ; Restarting after equilibriation
