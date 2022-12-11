@@ -1,4 +1,4 @@
-title       = Steered MD
+title       = CF_SMD
 
 ; Run parameters
 integrator  = sd           ; 
@@ -7,9 +7,9 @@ tinit       = 0
 nsteps      = 500000000    ; 1,000,000 ps = 1000 ns
 
 ; Output parameters
-nstxout-compressed = 1000 
-;compressed-x-grps  = Protein_LIG ;System
-nstlog             = 1000
+nstxout-compressed = 1000  ; 1 ps
+compressed-x-grps  = System
+nstlog             = 5000
 ;nstvout            = 1000 
 ;nstfout            = 1000
 ;nstenergy          = 1000
@@ -56,8 +56,8 @@ pull-nstxout            = 1
 pull-nstfout            = 1
 pull_ncoords            = 1         ; only one reaction coordinate 
 pull_ngroups            = 2         ; two groups defining one reaction coordinate 
-pull_group1_name        = triad
-pull_group2_name        = LIG
+pull_group1_name        = reg1
+pull_group2_name        = reg2
 pull_coord1_type        = constant-force
 pull_coord1_geometry    = distance        ; simple distance increase 
 pull_coord1_dim         = Y Y Y
