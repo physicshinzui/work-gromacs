@@ -13,7 +13,7 @@ BT=$2
 proteinName=`basename ${inputPDBName%.*}`
 GMX=gmx
 
-is_mixed=1
+is_mixed='false'
 
 ${GMX} pdb2gmx -f ${inputPDBName} -o ${proteinName}_processed.gro -water tip3p
 
@@ -28,7 +28,7 @@ ${GMX} solvate -cp ${proteinName}_newbox.gro \
              -o ${proteinName}_solv.gro    \
              -p topol.top
 
-if [ $is_mixed ]; then
+if $is_mixed; then
     read -p "How many molecules do you want to replace with water?" nmol
     read -p "Molecule Types?[ne/ar/kr/xe]" tp
     ${GMX} insert-molecules -f ${proteinName}_solv.gro -ci ../box/noble/${tp}.pdb -nmol $nmol -replace SOL -o ${proteinName}_solv.gro
@@ -46,7 +46,8 @@ echo "SOL" | ${GMX} genion \
     -o ${proteinName}_solv_ions.gro \
     -p topol.top \
     -pname NA -nname CL \
-    -conc 0.1 -neutral 
+    -neutral 
+    #-conc 0.1 -neutral 
 
 echo "Energy minimisation 1 ..."
 ${GMX} grompp -f ../templates/em1.mdp \
