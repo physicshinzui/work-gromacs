@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eu
-source argparser
+source argparser.sh
 
 [ -d $prefix ] && read -p "$prefix already exists. Do you want to remove $prefix?[enter]" && rm -rf $prefix 
 mkdir $prefix
