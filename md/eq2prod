@@ -16,7 +16,6 @@ case $TYPE in
         ;;
 
     smd)
-        # NOTE: Should ../scripts/make_index_for_smd.sh be put here?
         bash ../03_smd_prod.sh $ID
         ;;
 
