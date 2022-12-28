@@ -13,7 +13,7 @@ BT=$2
 proteinName=`basename ${inputPDBName%.*}`
 GMX=gmx
 
-is_mixed='false'
+is_mixed='true'
 
 ${GMX} pdb2gmx -f ${inputPDBName} -o ${proteinName}_processed.gro -water tip3p
 
