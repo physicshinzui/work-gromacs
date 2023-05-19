@@ -5,7 +5,7 @@ source argparser
 mkdir $prefix
 cd $prefix 
 
-bash ../01_prepMD.sh $PDB $BT
+bash ../01_create_system.sh $PDB $BT
 INDEX_REF=em2.gro
 bash ../scripts/make_index_for_smd.sh $INDEX_REF
 for i in $(seq 1 $N); do
